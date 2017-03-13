@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+npm-debug.log
+.vagrant
+misc
+lib
+www/client.js*
+src/swarm.js
+.idea/
+*.iml
