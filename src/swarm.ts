@@ -1,11 +1,22 @@
+function show_guide() {
+    let text: HTMLTextAreaElement = <any> document.getElementById("clipboard");
+    text.value = swarm_main.toString() + ";swarm_main();";
+    document.getElementById("guide").hidden = false;
+}
+function hide_guide() {
+    document.getElementById("guide").hidden = true;
+}
 function swarm_main() {
     let cells: Cell[] = [];
     let size = 12;
     let margin = 50;
     let edge_size = 10;
-    let avoid_edge_force = 0;
+    let avoid_edge_force = 1;
+    let closeness_rate = 0.1;
+    let min_distance = size * 1.5;
     let max_x: number = document.body.clientWidth;
     let max_y: number = document.body.clientHeight;
+    let max_speed = 10;
 
     function avg(a: number, b: number): number {
         return (a + b) / 2;
@@ -53,7 +64,7 @@ function swarm_main() {
             return Math.sqrt(x * x + y * y);
         }
 
-        getClosest(): Cell {
+        getClosest(): [Cell, number] {
             let distance = Number.MAX_VALUE;
             let idx = this.id;
             for (let i = 0; i < cells.length; i++) {
@@ -65,11 +76,11 @@ function swarm_main() {
                     idx = i;
                 }
             }
-            return cells[idx];
+            return [cells[idx], distance];
         }
 
         move() {
-            let cell = this.getClosest();
+            let [cell, distance] = this.getClosest();
 
             if (this.x < edge_size) {
                 this.ax = avoid_edge_force
@@ -93,6 +104,17 @@ function swarm_main() {
             this.vx += this.ax;
             this.vy += this.ay;
 
+            this.vx *= (1 - closeness_rate);
+            this.vy *= (1 - closeness_rate);
+
+            if (distance < min_distance) {
+                this.vx -= (cell.x - this.x) * closeness_rate;
+                this.vy -= (cell.y - this.y) * closeness_rate;
+            } else {
+                this.vx += (cell.x - this.x) * closeness_rate;
+                this.vy += (cell.y - this.y) * closeness_rate;
+            }
+
             if (this.x <= edge_size && this.vx < 0)
                 this.vx *= -1;
             else if (max_x <= this.x && this.vx > 0)
@@ -103,8 +125,8 @@ function swarm_main() {
             else if (max_y <= this.y && this.vy > 0)
                 this.vy *= -1;
 
-            this.x += this.vx;
-            this.y += this.vy;
+            this.x += Math.min(this.vx, max_speed);
+            this.y += Math.min(this.vy, max_speed);
 
             this.span.style.left = this.x + 'px';
             this.span.style.top = this.y + 'px';
@@ -130,10 +152,10 @@ function swarm_main() {
     }
 
     function init() {
-        if (document.body.textContent.trim().length == 0 || true) {
+        if (document.body.innerText.trim().length == 0) {
             document.writeln(swarm_main.toString());
         }
-        let text = document.body.textContent.trim();
+        let text = document.body.innerText.trim();
         document.body.textContent = '';
         document.body.style.left = '0px';
         document.body.style.top = '0px';
@@ -154,12 +176,14 @@ function swarm_main() {
     setInterval(main, 40);
     // main();
 }
-if (typeof window.onload === 'function') {
-    let f = window.onload;
-    window.onload = function () {
-        f.apply(arguments);
-        swarm_main();
-    };
-} else {
-    window.onload = swarm_main;
+if (window['auto_start']) {
+    if (typeof window.onload === 'function') {
+        let f = window.onload;
+        window.onload = function () {
+            f.apply(arguments);
+            swarm_main();
+        };
+    } else {
+        window.onload = swarm_main;
+    }
 }
