@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p dist
 ls src/ | grep -v '\.ts$' | xargs -I {} cp src/{} dist/{} -v
 git add dist/*
 git commit -m 'updated dist'

@@ -7,6 +7,7 @@ function hide_guide() {
     document.getElementById("guide").hidden = true;
 }
 function swarm_main() {
+    console.log('swarm.js', 'v1.0.1');
     var cells = [];
     var size = 12;
     var margin = 50;
@@ -130,6 +131,7 @@ function swarm_main() {
                 col++;
             }
         }
+        console.log('created', cells.length, 'cells');
     }
     function init() {
         for (var i = setTimeout(0); i >= 0; i--) {
