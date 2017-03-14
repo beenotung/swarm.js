@@ -14,9 +14,14 @@ function swarm_main() {
     let avoid_edge_force = 1;
     let closeness_rate = 0.1;
     let min_distance = size * 1.5;
-    let max_x: number = document.body.clientWidth;
-    let max_y: number = document.body.clientHeight;
+    let max_x: number;
+    let max_y: number;
     let max_speed = 10;
+
+    function update_screen_size() {
+        max_x = window.innerWidth;
+        max_y = window.innerHeight;
+    }
 
     function avg(a: number, b: number): number {
         return (a + b) / 2;
@@ -152,6 +157,8 @@ function swarm_main() {
     }
 
     function init() {
+        addFunction(window, 'onresize', update_screen_size);
+        update_screen_size();
         if (document.body.innerText.trim().length == 0) {
             document.writeln(swarm_main.toString());
         }
@@ -164,17 +171,25 @@ function swarm_main() {
 
     function main() {
         console.log('main');
-        max_x = document.body.clientWidth - margin;
-        max_y = document.body.clientHeight - margin;
         cells.forEach(cell => {
             cell.move();
         });
-        // setTimeout(main, 40);
+    }
+
+    function addFunction(target: any, name: string, f: Function) {
+        if (typeof target[name] === 'function') {
+            let ori = target[name];
+            target[name] = function () {
+                ori.apply(null, arguments);
+                f.apply(null, arguments);
+            }
+        } else {
+            target[name] = f;
+        }
     }
 
     init();
     setInterval(main, 40);
-    // main();
 }
 if (window['auto_start']) {
     if (typeof window.onload === 'function') {
