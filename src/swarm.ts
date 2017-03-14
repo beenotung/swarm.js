@@ -178,6 +178,7 @@ function swarm_main(mode?: 'unique') {
         document.body.textContent = '';
         document.body.style.left = '0px';
         document.body.style.top = '0px';
+        document.body.style.margin = '0px';
         if (mode == 'unique') {
             let res = {};
             for (let c of text) {
