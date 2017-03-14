@@ -4,6 +4,7 @@ git branch -D dist
 git checkout -b dist
 mkdir -p dist
 cp -v src/index.html dist/
+tsc src/swarm.ts --target ES6
 mv -v src/swarm.js dist/
 git add dist/*
 git commit -m 'updated dist'
