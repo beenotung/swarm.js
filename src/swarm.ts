@@ -17,7 +17,7 @@ function swarm_main() {
     let min_distance = size * 1.5;
     let max_x: number;
     let max_y: number;
-    let max_speed = 4;
+    let max_speed = 10;
 
     function update_screen_size() {
         max_x = window.innerWidth - edge_size - margin;
