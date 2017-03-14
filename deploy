@@ -1,5 +1,5 @@
 #!/bin/bash
-ori_branch=$(git branch)
+ori_branch=$(git branch | grep '*' | sed 's/*//')
 git branch -D dist
 git checkout -b dist
 mkdir -p dist
