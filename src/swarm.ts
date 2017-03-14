@@ -6,8 +6,8 @@ function show_guide() {
 function hide_guide() {
     document.getElementById("guide").hidden = true;
 }
-document.getElementById('name').textContent = 'swarm.js v1.0.3';
-function swarm_main() {
+document.getElementById('name').textContent = 'swarm.js v1.1.0';
+function swarm_main(mode = 'unique') {
     let cells: Cell[] = [];
     let size = 12;
     let margin = 25;
@@ -172,6 +172,13 @@ function swarm_main() {
         document.body.textContent = '';
         document.body.style.left = '0px';
         document.body.style.top = '0px';
+        if (mode == 'unique') {
+            let res = {};
+            for (let c of text) {
+                res[c] = 1;
+            }
+            text = Object.keys(res).join('');
+        }
         createCells(text);
     }
 
@@ -205,6 +212,6 @@ if (window['auto_start']) {
             swarm_main();
         };
     } else {
-        window.onload = swarm_main;
+        window.onload = swarm_main.bind(null);
     }
 }

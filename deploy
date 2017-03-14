@@ -1,6 +1,10 @@
 #!/bin/bash
+ori_branch=$(git branch)
+git checkout -b dist
 mkdir -p dist
-ls src/ | grep -v '\.ts$' | xargs -I {} cp src/{} dist/{} -v
+cp -v src/index.html dist/
+mv -v src/swarm.js dist/
 git add dist/*
 git commit -m 'updated dist'
-git push origin master
+git push origin dist
+git checkout "$ori_branch"
