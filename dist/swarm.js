@@ -6,8 +6,8 @@ function show_guide() {
 function hide_guide() {
     document.getElementById("guide").hidden = true;
 }
+document.getElementById('name').textContent = 'swarm.js v1.0.3';
 function swarm_main() {
-    console.log('swarm.js', 'v1.0.1');
     var cells = [];
     var size = 12;
     var margin = 25;
@@ -17,7 +17,7 @@ function swarm_main() {
     var min_distance = size * 1.5;
     var max_x;
     var max_y;
-    var max_speed = 10;
+    var max_speed = 4;
     function update_screen_size() {
         max_x = window.innerWidth - edge_size - margin;
         max_y = window.innerHeight - edge_size - margin;
