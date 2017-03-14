@@ -18,8 +18,8 @@ function swarm_main() {
     var max_y;
     var max_speed = 10;
     function update_screen_size() {
-        max_x = window.innerWidth;
-        max_y = window.innerHeight;
+        max_x = window.innerWidth - margin;
+        max_y = window.innerHeight - margin;
     }
     function avg(a, b) {
         return (a + b) / 2;
@@ -132,6 +132,10 @@ function swarm_main() {
         }
     }
     function init() {
+        for (var i = setTimeout(0); i >= 0; i--) {
+            clearTimeout(i);
+            clearInterval(i);
+        }
         addFunction(window, 'onresize', update_screen_size);
         update_screen_size();
         if (document.body.innerText.trim().length == 0) {
