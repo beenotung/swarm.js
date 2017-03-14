@@ -6,7 +6,7 @@ function show_guide() {
 function hide_guide() {
     document.getElementById("guide").hidden = true;
 }
-document.getElementById('name').textContent = 'swarm.js v1.1.1';
+document.getElementById('name').textContent = 'swarm.js v1.1.3.4';
 function swarm_main(mode?: 'unique') {
     let cells: Cell[] = [];
     let size = 12;
@@ -64,6 +64,8 @@ function swarm_main(mode?: 'unique') {
         ax: number;
         ay: number;
 
+        closest: [Cell, number];
+
         getDistance(cell: Cell): number {
             let x = this.x - cell.x;
             let y = this.y - cell.y;
@@ -71,6 +73,8 @@ function swarm_main(mode?: 'unique') {
         }
 
         getClosest(): [Cell, number] {
+            if (this.closest)
+                return this.closest;
             let distance = Number.MAX_VALUE;
             let idx = this.id;
             for (let i = 0; i < cells.length; i++) {
@@ -82,7 +86,9 @@ function swarm_main(mode?: 'unique') {
                     idx = i;
                 }
             }
-            return [cells[idx], distance];
+            let cell = cells[idx];
+            cell.closest = [this, distance];
+            return [cell, distance];
         }
 
         move() {
@@ -182,8 +188,19 @@ function swarm_main(mode?: 'unique') {
         createCells(text);
     }
 
+    let lastTime = Date.now();
+    let nowTime = Date.now();
+    let n_frame = 0;
+
     function main() {
-        console.log('main');
+        nowTime = Date.now();
+        n_frame++;
+        if (nowTime - lastTime > 1000) {
+            lastTime = nowTime;
+            console.log('fps', n_frame);
+            n_frame = 0;
+        }
+        cells.forEach(cell => cell.closest = null);
         cells.forEach(cell => {
             cell.move();
         });
