@@ -1,5 +1,5 @@
 #!/bin/bash
-ls src/ | xargs -I {} cp src/{} dist/{} -v
+ls src/ | grep -v '\.ts$' | xargs -I {} cp src/{} dist/{} -v
 git add dist/*
 git commit -m 'updated dist'
 git push origin master
