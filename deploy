@@ -1,10 +1,11 @@
 #!/bin/bash
 ori_branch=$(git branch)
+git branch -D dist
 git checkout -b dist
 mkdir -p dist
 cp -v src/index.html dist/
 mv -v src/swarm.js dist/
 git add dist/*
 git commit -m 'updated dist'
-git push origin dist
+git push origin --force dist
 git checkout "$ori_branch"
