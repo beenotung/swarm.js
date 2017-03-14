@@ -14,9 +14,13 @@ function swarm_main() {
     var avoid_edge_force = 1;
     var closeness_rate = 0.1;
     var min_distance = size * 1.5;
-    var max_x = document.body.clientWidth;
-    var max_y = document.body.clientHeight;
+    var max_x;
+    var max_y;
     var max_speed = 10;
+    function update_screen_size() {
+        max_x = window.innerWidth;
+        max_y = window.innerHeight;
+    }
     function avg(a, b) {
         return (a + b) / 2;
     }
@@ -128,6 +132,8 @@ function swarm_main() {
         }
     }
     function init() {
+        addFunction(window, 'onresize', update_screen_size);
+        update_screen_size();
         if (document.body.innerText.trim().length == 0) {
             document.writeln(swarm_main.toString());
         }
@@ -139,16 +145,24 @@ function swarm_main() {
     }
     function main() {
         console.log('main');
-        max_x = document.body.clientWidth - margin;
-        max_y = document.body.clientHeight - margin;
         cells.forEach(function (cell) {
             cell.move();
         });
-        // setTimeout(main, 40);
+    }
+    function addFunction(target, name, f) {
+        if (typeof target[name] === 'function') {
+            var ori_1 = target[name];
+            target[name] = function () {
+                ori_1.apply(null, arguments);
+                f.apply(null, arguments);
+            };
+        }
+        else {
+            target[name] = f;
+        }
     }
     init();
     setInterval(main, 40);
-    // main();
 }
 if (window['auto_start']) {
     if (typeof window.onload === 'function') {
