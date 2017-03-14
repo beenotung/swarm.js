@@ -10,7 +10,7 @@ function swarm_main() {
     console.log('swarm.js', 'v1.0.1');
     let cells: Cell[] = [];
     let size = 12;
-    let margin = 50;
+    let margin = 25;
     let edge_size = 10;
     let avoid_edge_force = 1;
     let closeness_rate = 0.1;
@@ -20,8 +20,8 @@ function swarm_main() {
     let max_speed = 10;
 
     function update_screen_size() {
-        max_x = window.innerWidth - margin;
-        max_y = window.innerHeight - margin;
+        max_x = window.innerWidth - edge_size - margin;
+        max_y = window.innerHeight - edge_size - margin;
     }
 
     function avg(a: number, b: number): number {
