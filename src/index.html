@@ -31,21 +31,29 @@
 <script src="swarm.js" async></script>
 
 <button onclick="swarm_main()">Start</button>
-<button onclick="swarm_main('unique')">Start Unique</button>
-<button onclick="show_guide()">Copy into clipboard</button>
+<button onclick="swarm_main('unique')">Start (Unique Mode)</button>
+<button onclick="show_guide()">Try on other website</button>
 
 <div id="guide" hidden>
     <h4>Guideline</h4>
     <ol>
-        <li>Copy to clipboard: Ctrl+C</li>
+        <li>Copy the code to clipboard
+            <ol>
+                <li>Click the textarea below</li>
+                <li>Press Ctrl+A to select the code</li>
+                <li>Press Ctrl+C to copy the code</li>
+            </ol>
+        </li>
         <li>Switch to your website</li>
-        <li>Hit F12 or</li>
-        <li>Right-click -> Inspect</li>
+        <li>Hit F12, or<br>
+            Right-click -> Inspect
+        </li>
         <li>Click Console</li>
-        <li>Paste to console: Ctrl+V</li>
+        <li>Paste the code to console: Press Ctrl+V</li>
         <li>Hit Enter</li>
-        <li>Hit F12 again to close the console or</li>
-        <li>Click the cross at button WITHIN the dev panel</li>
+        <li>Hit F12 again to close the console, or<br>
+            click the cross button WITHIN the dev panel
+        </li>
     </ol>
     <button onclick="hide_guide()">Ok</button>
     <br>
@@ -57,7 +65,7 @@
 
 The text in this document will turn into swarm.
 
-Fork feel free to fork me on <a href="https://github.com/beenotung/swarm.js">Github</a>
+Feel free to fork me on <a href="https://github.com/beenotung/swarm.js">Github</a>
 
 </body>
 </html>
