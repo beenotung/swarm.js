@@ -6,7 +6,7 @@ function show_guide() {
 function hide_guide() {
     document.getElementById("guide").hidden = true;
 }
-document.getElementById('name').textContent = 'swarm.js v1.1.3.4';
+document.getElementById('name').textContent = 'swarm.js v1.1.4';
 function swarm_main(mode?: 'unique') {
     let cells: Cell[] = [];
     let size = 12;
