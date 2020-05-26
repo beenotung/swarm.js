@@ -39,19 +39,21 @@ function swarm_main(mode?: 'unique') {
         span: HTMLSpanElement;
         id: number;
 
-        constructor(c: string) {
+        constructor(c: string, x: number, y: number) {
             this.span = document.createElement('span');
             this.span.style.position = 'absolute';
             this.span.textContent = c;
             this.span.style.fontSize = 12 + 'px';
             document.body.appendChild(this.span);
             this.id = cells.length;
-            this.x = max_x / 2;
-            this.y = max_y / 2;
+            this.x = x;
+            this.y = y;
             this.vx = (Math.random() * 2 - 1); //* size * 2;
             this.vy = (Math.random() * 2 - 1); //* size * 2;
             this.ax = 0;
             this.ay = 0;
+            this.span.style.left = this.x + 'px';
+            this.span.style.top = this.y + 'px';
             cells.push(this);
         }
 
@@ -151,9 +153,9 @@ function swarm_main(mode?: 'unique') {
         for (let i = 0; i < s.length; i++) {
             if (s[i].trim().length == 0)
                 continue;
-            let cell = new Cell(s[i]);
-            cell.x = col * size;
-            cell.y = row * size;
+            let x = col * size;
+            let y = row * size;
+            new Cell(s[i], x, y);
             if (col * size >= max_x - margin) {
                 col = 0;
                 row++;
