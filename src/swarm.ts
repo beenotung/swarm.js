@@ -1,12 +1,15 @@
 function show_guide() {
-    let text: HTMLTextAreaElement = <any> document.getElementById("clipboard");
+    let text: HTMLTextAreaElement = <any>document.getElementById("clipboard");
     text.value = swarm_main.toString() + ";swarm_main();";
     document.getElementById("guide").hidden = false;
 }
+
 function hide_guide() {
     document.getElementById("guide").hidden = true;
 }
+
 document.getElementById('name').textContent = 'swarm.js v1.1.4';
+
 function swarm_main(mode?: 'unique') {
     let cells: Cell[] = [];
     let size = 12;
@@ -98,20 +101,16 @@ function swarm_main(mode?: 'unique') {
 
             if (this.x < edge_size) {
                 this.ax = avoid_edge_force
-            }
-            else if (this.x > max_x - edge_size) {
+            } else if (this.x > max_x - edge_size) {
                 this.ax = -avoid_edge_force
-            }
-            else {
+            } else {
                 this.ax = 0
             }
             if (this.y < edge_size) {
                 this.ay = avoid_edge_force
-            }
-            else if (this.y > max_y - edge_size) {
+            } else if (this.y > max_y - edge_size) {
                 this.ay = -avoid_edge_force
-            }
-            else {
+            } else {
                 this.ay = 0
             }
 
@@ -146,6 +145,7 @@ function swarm_main(mode?: 'unique') {
             this.span.style.top = this.y + 'px';
         }
     }
+
     function createCells(s: string) {
         document.body.style.position = 'relative';
         let col = margin / size;
@@ -166,8 +166,12 @@ function swarm_main(mode?: 'unique') {
         console.log('created', cells.length, 'cells');
     }
 
+    function noop() {
+        // do nothing
+    }
+
     function init() {
-        for (let i = setTimeout(0); i >= 0; i--) {
+        for (let i = setTimeout(noop, 0); i >= 0; i--) {
             clearTimeout(i);
             clearInterval(i);
         }
@@ -224,6 +228,7 @@ function swarm_main(mode?: 'unique') {
     init();
     setInterval(main, 40);
 }
+
 if (window['auto_start']) {
     if (typeof window.onload === 'function') {
         let f = window.onload;
