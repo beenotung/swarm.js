@@ -181,6 +181,16 @@ function swarm_main(mode?: 'unique') {
         // do nothing
     }
 
+    function setHead() {
+        let meta: HTMLMetaElement = document.querySelector('meta[name=viewport]');
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.name = 'viewport';
+            document.head.appendChild(meta);
+        }
+        meta.content = 'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    }
+
     function init() {
         for (let i = setTimeout(noop, 0); i >= 0; i--) {
             clearTimeout(i);
@@ -202,6 +212,7 @@ body span {
   font-size: 1em;
 }
 </style>`;
+        setHead();
         if (mode == 'unique') {
             let res = {};
             for (let c of text) {
