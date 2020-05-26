@@ -12,7 +12,7 @@ document.getElementById('name').textContent = 'swarm.js v1.1.4';
 
 function swarm_main(mode?: 'unique') {
     let cells: Cell[] = [];
-    let size = 12;
+    let size = getFontSize();
     let margin = 25;
     let edge_size = 10;
     let avoid_edge_force = 1;
@@ -26,6 +26,18 @@ function swarm_main(mode?: 'unique') {
         max_x = window.innerWidth - edge_size - margin;
         max_y = window.innerHeight - edge_size - margin;
     }
+
+    function getFontSize() {
+        let span = document.createElement('span')
+        span.textContent = 'o'
+        span.style.fontSize = '1em'
+        document.body.appendChild(span)
+        let w = span.offsetWidth
+        let h = span.offsetHeight
+        document.body.removeChild(span)
+        return Math.min(w, h)
+    }
+
 
     function avg(a: number, b: number): number {
         return (a + b) / 2;
@@ -46,7 +58,6 @@ function swarm_main(mode?: 'unique') {
             this.span = document.createElement('span');
             this.span.style.position = 'absolute';
             this.span.textContent = c;
-            this.span.style.fontSize = 12 + 'px';
             document.body.appendChild(this.span);
             this.id = cells.length;
             this.x = x;
@@ -148,7 +159,7 @@ function swarm_main(mode?: 'unique') {
 
     function createCells(s: string) {
         document.body.style.position = 'relative';
-        let col = margin / size;
+        let col = 0;
         let row = 0;
         for (let i = 0; i < s.length; i++) {
             if (s[i].trim().length == 0)
@@ -181,10 +192,16 @@ function swarm_main(mode?: 'unique') {
             document.writeln(swarm_main.toString());
         }
         let text = document.body.innerText.trim();
-        document.body.textContent = '';
-        document.body.style.left = '0px';
-        document.body.style.top = '0px';
-        document.body.style.margin = '0px';
+        document.body.innerHTML = `<style>
+body {
+  margin: 0;
+  left: 0;
+  top: 0;
+}
+body span {
+  font-size: 1em;
+}
+</style>`;
         if (mode == 'unique') {
             let res = {};
             for (let c of text) {
