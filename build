@@ -1,0 +1,2 @@
+#!/bin/bash
+tsc src/swarm.ts --target ES6
