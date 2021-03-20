@@ -1,4 +1,4 @@
-# sawrm.js
+# swarm.js
 
 Turn any website into word swarm.
 
