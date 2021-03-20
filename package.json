@@ -1,0 +1,28 @@
+{
+  "name": "swarm.js",
+  "version": "1.0.0",
+  "description": "Turn any website into word swarm.",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf src/swarm.js",
+    "build": "tsc src/swarm.ts --target ES6",
+    "preupload": "npm run build",
+    "upload": "surge src https://swarm-js.surge.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beenotung/swarm.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beenotung/swarm.js/issues"
+  },
+  "homepage": "https://github.com/beenotung/swarm.js#readme",
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "surge": "^0.21.6",
+    "typescript": "^4.2.3"
+  }
+}
